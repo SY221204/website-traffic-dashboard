@@ -1,0 +1,15 @@
+Date,VisitorID,PageVisited,SessionDuration,Source
+2025-07-01,1,Home,120,Direct
+2025-07-01,2,About,45,Referral
+2025-07-01,3,Contact,10,Social
+2025-07-02,1,Home,80,Social
+2025-07-02,4,Blog,180,Direct
+2025-07-02,5,Home,5,Referral
+2025-07-02,6,Pricing,30,Direct
+2025-07-03,7,Home,95,Referral
+2025-07-03,8,Blog,210,Social
+2025-07-04,1,Contact,25,Direct
+2025-07-04,9,Home,60,Referral
+2025-07-04,10,Pricing,15,Social
+2025-07-05,11,Home,8,Direct
+2025-07-05,12,Home,90,Social
