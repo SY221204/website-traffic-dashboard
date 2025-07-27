@@ -10,6 +10,7 @@ Original file is located at
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import matplotlib.dates as mdates
 
 # Read the website traffic CSV
 df = pd.read_csv("website_traffic.csv")
@@ -22,12 +23,16 @@ df["Date"] = pd.to_datetime(df["Date"])
 
 visitors_per_day = df.groupby("Date")["VisitorID"].nunique()
 
-plt.figure(figsize=(8, 5))
+plt.figure(figsize=(12, 5))
 plt.plot(visitors_per_day.index, visitors_per_day.values, marker='o', color='teal')
 plt.title("Unique Visitors Per Day")
 plt.xlabel("Date")
 plt.ylabel("Number of Visitors")
-plt.xticks(rotation=45)
+date_form = mdates.DateFormatter('%Y-%m-%d')
+plt.gca().xaxis.set_major_formatter(date_form)
+plt.gca().xaxis.set_major_locator(mdates.DayLocator())
+plt.xticks(visitors_per_day.index, rotation=45, ha='right')
+plt.gca().set_xticklabels([date.strftime('%Y-%m-%d') for date in visitors_per_day.index])
 plt.tight_layout()
 plt.show()
 
@@ -36,7 +41,7 @@ plt.show()
 
 page_visits = df["PageVisited"].value_counts()
 
-plt.figure(figsize=(7, 5))
+plt.figure(figsize=(8, 5))
 sns.barplot(x=page_visits.index, y=page_visits.values, palette="Set2", hue=page_visits.index, legend=False)
 plt.title("Most Visited Pages")
 plt.xlabel("Page")
@@ -49,7 +54,7 @@ plt.show()
 
 source_counts = df["Source"].value_counts()
 
-plt.figure(figsize=(5, 5))
+plt.figure(figsize=(8, 5))
 plt.pie(
     source_counts,
     labels=source_counts.index,
@@ -69,4 +74,3 @@ bounce_rate = (len(bounce_sessions) / len(df)) * 100
 print("\n--- Website KPIs ---")
 print(f"Average Session Duration: {avg_session:.2f} seconds")
 print(f"Bounce Rate: {bounce_rate:.2f}% (sessions under 15s)")
-
