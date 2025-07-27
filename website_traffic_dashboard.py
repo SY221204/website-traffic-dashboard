@@ -22,19 +22,17 @@ df["Date"] = pd.to_datetime(df["Date"])
 # 1. Line Chart: Visitors per Day
 
 visitors_per_day = df.groupby("Date")["VisitorID"].nunique()
-
-plt.figure(figsize=(12, 5))
-plt.plot(visitors_per_day.index, visitors_per_day.values, marker='o', color='teal')
+dates = visitors_per_day.index.strftime('%Y-%m-%d')  
+counts = visitors_per_day.values
+plt.figure(figsize=(10, 5))
+plt.plot(dates, counts, marker='o', color='teal')
 plt.title("Unique Visitors Per Day")
 plt.xlabel("Date")
 plt.ylabel("Number of Visitors")
-date_form = mdates.DateFormatter('%Y-%m-%d')
-plt.gca().xaxis.set_major_formatter(date_form)
-plt.gca().xaxis.set_major_locator(mdates.DayLocator())
-plt.xticks(visitors_per_day.index, rotation=45, ha='right')
-plt.gca().set_xticklabels([date.strftime('%Y-%m-%d') for date in visitors_per_day.index])
+plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
+
 
 
 # 2. Bar Chart: Most Visited Pages
